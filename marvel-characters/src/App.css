@@ -1,0 +1,9 @@
+body {
+  background-color: black;
+  color: white;
+}
+
+.container, .card, .form-control, .form-select {
+  background-color: black; 
+  color: white;
+}
