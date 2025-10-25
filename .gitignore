@@ -1,0 +1,18 @@
+"# Git ignore file" 
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+dist/
+
+# Environment files
+.env
+
+# IDE / OS files
+.vscode/
+.idea/
+.DS_Store
