@@ -1,0 +1,137 @@
+/* Hero banner */
+.catalog-hero {
+    position: relative;
+    min-height: 240px;
+    border-radius: 14px;
+    margin: 12px 0 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 28px 28px 28px 28px;
+    background: #0b0b0b;
+}
+
+.catalog-hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("./Spider-Venom.jpg");
+    background-position: left center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.9;
+    filter: saturate(1.1) contrast(1.05);
+}
+
+
+/* gradient/veil layer */
+.catalog-hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    z-index: 0;                 /* behind content */
+    pointer-events: none;       /* don't block clicks */
+    background: linear-gradient(
+    90deg,
+    rgba(0,0,0,0.10) 0%,
+    rgba(0,0,0,0.25) 40%,
+    rgba(0,0,0,0.45) 60%,
+    rgba(0,0,0,0.30) 80%,
+    rgba(0,0,0,0.00) 100%     /* lighten near the buttons */
+    );
+}
+
+
+
+.catalog-hero-content {
+    position: relative; /* over the overlays */
+    z-index: 1;
+    margin-left: auto;  /* push content to the right */
+    width: min(680px, 100%);
+    color: #fff;
+}
+
+.catalog-title {
+    font-size: clamp(28px, 4.2vw, 48px);
+    letter-spacing: .5px;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 20px rgba(0,0,0,.6);
+}
+
+.catalog-sub {
+    color: #d7d7d7;
+    margin-bottom: 16px;
+}
+
+/* Search bar */
+.catalog-search .form-control {
+    height: 48px;
+    font-size: 16px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #2c2c2c;
+    background: #121212;
+    color: #fff;
+}
+.catalog-search .form-control::placeholder { color: #9aa0a6; }
+.catalog-search .btn {
+    height: 48px;
+    border-radius: 12px;
+    }
+
+/* Cards */
+.char-card {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    transition: transform .18s ease, box-shadow .18s ease;
+    box-shadow: 0 4px 18px rgba(0,0,0,.06);
+}
+
+.char-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(220, 20, 60, 0.18);
+    }
+
+.char-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;       /* fills the frame nicely */
+    background: #111;        /* fallback color while loading */
+}
+
+.char-body { padding: 14px 16px 18px; }
+
+.view-btn {
+    border-radius: 10px;
+    padding: 8px 14px;
+    }
+
+button,
+.btn,
+.btn-danger {
+    background-color: #e23636;        /* Marvel red */
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    white-space: nowrap;              /* keeps text on one line */
+    line-height: 1.2;                 /* better text alignment */
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover,
+.btn:hover,
+.btn-danger:hover {
+    background-color: #b72020;        /* darker red hover */
+    transform: translateY(-2px);
+    box-shadow: 0px 3px 10px rgba(226, 54, 54, 0.4);
+}
+
+/* Smooth enter animation for the grid */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeUp .35s ease forwards; }

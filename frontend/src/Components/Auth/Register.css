@@ -1,0 +1,111 @@
+/* Split hero with image left, form right (like your login vibe) */
+.RegisterHero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8%;
+    color: #fff;
+    position: relative;
+    background: #0c0c0c;
+}
+
+/* background image layer */
+.RegisterHero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url('./thanos.jpg');  /* <-- put image next to this CSS or adjust path */
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left center;
+    filter: saturate(1.05) contrast(1.05) brightness(0.95);
+    z-index: 0;
+}
+
+/* gradient veil so right side text stays readable */
+.RegisterHero::after {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+    90deg,
+    rgba(0,0,0,0.50) 0%,
+    rgba(0,0,0,0.35) 35%,
+    rgba(0,0,0,0.15) 60%,
+    rgba(0,0,0,0.00) 80%
+    );
+    z-index: 0;
+}
+
+.register-container {
+    position: relative;
+    z-index: 1;
+    width: min(440px, 100%);
+}
+
+.register-title {
+    font-size: clamp(28px, 4vw, 40px);
+    margin-bottom: 14px;
+    letter-spacing: .4px;
+}
+
+.register-box {
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(2px);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 8px 28px rgba(220,20,60,0.18);
+}
+
+.form-control {
+    background: #121212;
+    color: #fff;
+    border: 1px solid #2c2c2c;
+    border-radius: 10px;
+}
+.form-control::placeholder { color: #9aa0a6; }
+
+.pwd-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.show-btn {
+    white-space: nowrap;
+    border-radius: 10px;
+    height: 40px;
+}
+
+/* Marvel red button */
+.btn-marvel {
+    background: #e23636;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-weight: 700;
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn-marvel:hover { background: #b72020; transform: translateY(-1px); }
+.btn-marvel:disabled { opacity: .7; }
+
+/* Strength meter */
+.strength {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.strength .bar {
+    width: 32px; height: 6px; border-radius: 4px;
+    background: #2c2c2c;
+    transition: background .2s ease;
+}
+.strength .bar.on:nth-child(1) { background: #ff6b6b; }
+.strength .bar.on:nth-child(2) { background: #ffd166; }
+.strength .bar.on:nth-child(3) { background: #2ed573; }
+.strength-label { font-size: .9rem; color: #cfcfcf; }
+
+/* links */
+.link-light { color: #ff5b5b; text-decoration: none; }
+.link-light:hover { text-decoration: underline; }

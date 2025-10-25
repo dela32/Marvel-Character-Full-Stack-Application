@@ -20,6 +20,12 @@ function NavBar() {
                     <Nav.Link as={NavLink} to="/AllCharacters" activeclassname="active">
                         All Characters
                     </Nav.Link>
+                    <Nav.Link as={NavLink} to="/MyTeam" activeclassname="active">
+                        My Team
+                    </Nav.Link>
+                    <Nav.Link as={NavLink} to="/Login" activeclassname="active">
+                        Login
+                    </Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
