@@ -33,8 +33,7 @@ load_dotenv()
 
 # DB: read from env (IMPORTANT: encode '#' as %23 in .env)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
-    'DATABASE_URL',
-    'mysql+mysqlconnector://root:password@localhost/marvel'
+    'DATABASE_URL', 'sqlite:///app.db'   # safe fallback for Render
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -130,11 +129,16 @@ team_members_schema = TeamMemberSchema(many=True)
 # -------------------- DB bootstrap --------------------
 
 def create_database():
-    db_url = os.getenv('DATABASE_URL', '')
-    root_url = db_url.rsplit('/', 1)[0] if '/' in db_url else "mysql+mysqlconnector://root:password@localhost"
-    root_engine = create_engine(root_url)
-    with root_engine.connect() as connection:
+    db_url = app.config['SQLALCHEMY_DATABASE_URI']
+    if db_url.startswith("sqlite"):
+        return  # SQLite has no CREATE DATABASE
+
+    # For MySQL URLs: create the DB if missing
+    root_url = db_url.rsplit('/', 1)[0]  # strip the db name
+    engine = create_engine(root_url)
+    with engine.connect() as connection:
         connection.execute(text("CREATE DATABASE IF NOT EXISTS marvel"))
+
 
 with app.app_context():
     create_database()
