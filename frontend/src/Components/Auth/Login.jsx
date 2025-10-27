@@ -29,18 +29,23 @@ export default function Login() {
         <form onSubmit={onSubmit} className="form-container">
             {error && <div className="alert alert-danger">{error}</div>}
             <input
-            className="form-control mb-2"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+              className="form-control mb-2"
+              type="email"
+              placeholder="Email"
+              autoComplete="email"
+              inputMode="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
-            className="form-control mb-2"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+              className="form-control mb-2"
+              type="password"
+              placeholder="Password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
+
             <button className="btn btn-danger w-100">Login</button>
         </form>
         <div className="mt-2 text-center">
