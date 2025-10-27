@@ -1,38 +1,43 @@
 .Home {
   position: relative;
-  min-height: 100svh; /* mobile friendly height */
+  min-height: 100svh;
   background: 
-    linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.85)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9)),
     url('./blackPanther.jpg') center/cover no-repeat;
   color: #fff;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: center;
-  padding: clamp(1rem, 4vw, 3rem);
+  padding-bottom: 15vh;
   text-align: center;
-  overflow: hidden;
 }
 
-/* Headline */
+/* Headline text */
 .headerText {
-  font-size: clamp(1.8rem, 6vw, 3rem);
-  font-weight: 700;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  line-height: 1.1;
   margin-bottom: 1.5rem;
-  line-height: 1.2;
-  text-wrap: balance;
+
+  /* slight text shadow for readability */
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.8),
+               0 0 12px rgba(255, 255, 255, 0.1);
 }
 
 /* Button */
 .findOutButton {
-  font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
   font-weight: 600;
   border: 2px solid #fff !important;
   color: #fff !important;
-  padding: 10px 20px;
+  padding: 12px 28px;
   border-radius: 10px;
   background: transparent !important;
   transition: all 0.3s ease;
+  letter-spacing: 1px;
 }
 
 .findOutButton:hover,
@@ -42,16 +47,20 @@
   transform: translateY(-2px);
 }
 
-/* Better spacing on tablets & desktops */
+/* Tablet / Desktop adjustments */
 @media (min-width: 768px) {
   .Home {
-    flex-direction: column;
     justify-content: center;
-    padding: 2rem;
+    padding-bottom: 0;
+  }
+
+  .headerText {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 2rem;
   }
 }
 
-/* Safe area fix for iPhones with notches */
+/* iPhone notch safe padding */
 @supports (padding: max(0px)) {
   .Home {
     padding-left: max(1rem, env(safe-area-inset-left));
