@@ -1,60 +1,88 @@
+/* ===== Base: phones ===== */
 .Home {
-    background-color: black;
-    background-image: url('./Red-Skull.jpg');
-    background-size: contain; /* Keep full character visible */
-    background-position: left center; /* Push image to the left */
-    background-repeat: no-repeat;
-    height: 100vh;
-    display: flex;
-    justify-content: flex-end; /* Move content to the right */
-    align-items: center;
-    color: white;
-    position: relative;
-    overflow: hidden;
-    padding-right: 10%; /* Add spacing from right edge */
+  position: relative;
+  min-height: 100svh;                   /* better than 100vh on mobile */
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.85)),
+    url('./Red-Skull.jpg') center/cover no-repeat;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;              /* center card on phones */
+  padding: 16px;
+  text-align: center;                   /* friendlier on small screens */
+  overflow: hidden;
 }
 
-/* Dark overlay for readability */
-.Home::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.55);
-    z-index: 0;
-}
+/* readability overlay (kept subtle; main gradient is in background) */
+.Home::before { content: none; }
 
+/* Headline */
 .headerText {
-    font-size: 3rem;
-    text-align: right;
-    z-index: 2;
-    margin-bottom: 1.5rem;
+  margin: 0 0 1rem 0;
+  font-weight: 800;
+  line-height: 1.1;
+  font-size: clamp(1.75rem, 6vw, 2.25rem);
+  text-shadow: 0 3px 10px rgba(0,0,0,.7);
 }
 
+/* Card */
 .login-box {
-    background-color: rgba(0, 0, 0, 0.75);
-    padding: 2rem;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.4);
-    z-index: 2;
+  position: relative;
+  z-index: 1;
+  width: min(520px, 100%);
+  background: rgba(0,0,0,.75);
+  border-radius: 14px;
+  padding: clamp(16px, 4vw, 28px);
+  box-shadow: 0 12px 40px rgba(226,54,54,.25);
+  backdrop-filter: blur(2px);
 }
 
-/* Wrap header + form together */
-.login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    z-index: 2;
+/* Form controls: big, tappable */
+.form-container .form-control {
+  height: 48px;
+  font-size: 16px;                      /* prevents iOS zoom */
+  border-radius: 10px;
+  background: #161616;
+  border: 1px solid #2c2c2c;
+  color: #fff;
+}
+.form-container .form-control::placeholder { color: #9aa0a6; }
+
+.btn.btn-danger {
+  height: 48px;
+  border-radius: 10px;
+  font-weight: 700;
+  background-color: #e23636;
+  border: none;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .2s;
+}
+.btn.btn-danger:hover { background:#b72020; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(226,54,54,.35); }
+
+.link-light { color: #ff5b5b; text-decoration: none; }
+.link-light:hover { text-decoration: underline; }
+
+/* ===== Tablets ===== */
+@media (min-width: 768px) {
+  .Home { padding: 24px; }
+  .login-box { border-radius: 16px; }
 }
 
-.link-light {
-    color: #ff5b5b;
-    text-decoration: none;
+/* ===== Desktops: restore left art + right card ===== */
+@media (min-width: 992px) {
+  .Home {
+    background:
+      linear-gradient(90deg, rgba(0,0,0,.20) 0%, rgba(0,0,0,.65) 40%, rgba(0,0,0,.25) 100%),
+      url('./Red-Skull.jpg') left center/contain no-repeat;
+    justify-content: flex-end;
+    text-align: right;
+    padding-right: max(6vw, 48px);
+  }
+  .headerText { font-size: clamp(2rem, 3.2vw, 3rem); }
+  .login-box { max-width: 420px; }
 }
-.link-light:hover {
-    text-decoration: underline;
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .btn.btn-danger { transition: none; }
 }
