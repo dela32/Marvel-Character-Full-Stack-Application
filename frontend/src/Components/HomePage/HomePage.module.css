@@ -1,68 +1,60 @@
 .Home {
   position: relative;
-  min-height: 100svh;
+  min-height: 100svh; /* mobile friendly height */
   background: 
     linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.85)),
     url('./blackPanther.jpg') center/cover no-repeat;
   color: #fff;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: clamp(16px, 4vw, 48px);
+  padding: clamp(1rem, 4vw, 3rem);
   text-align: center;
   overflow: hidden;
 }
 
-/* Put your text and button inside a wrapper instead of absolutely positioning them */
-.heroContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  max-width: 42rem;
-}
-
-/* Scales nicely from phones to desktop */
+/* Headline */
 .headerText {
-  margin: 0;
-  line-height: 1.15;
-  font-size: clamp(1.75rem, 6vw, 3rem);
-  font-weight: 800;
-  letter-spacing: .02em;
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
   text-wrap: balance;
 }
 
-/* Big, tappable CTA */
+/* Button */
 .findOutButton {
-  display: inline-block;
-  padding: 12px 18px;              
-  line-height: 1.2;
-  border: 2px solid #fff;
-  border-radius: 10px;
-  background: transparent;
-  color: #fff;
-  font-size: clamp(0.95rem, 3.5vw, 1.125rem);
+  font-size: clamp(0.9rem, 3.5vw, 1.1rem);
   font-weight: 600;
-  text-decoration: none;
-  transition: transform .12s ease, background-color .2s ease, color .2s ease;
+  border: 2px solid #fff !important;
+  color: #fff !important;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: transparent !important;
+  transition: all 0.3s ease;
 }
+
 .findOutButton:hover,
 .findOutButton:focus-visible {
-  background: #fff;
-  color: #000;
-  transform: translateY(-1px);
-  outline: none;
+  background-color: #fff !important;
+  color: #000 !important;
+  transform: translateY(-2px);
 }
 
-/* Slightly tighten layout on tablets/desktops */
+/* Better spacing on tablets & desktops */
 @media (min-width: 768px) {
-  .heroContent { gap: 1.25rem; }
+  .Home {
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+  }
 }
 
-/* Safe area (iOS notch) */
+/* Safe area fix for iPhones with notches */
 @supports (padding: max(0px)) {
   .Home {
-    padding-left: max(16px, env(safe-area-inset-left));
-    padding-right: max(16px, env(safe-area-inset-right));
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
   }
 }
