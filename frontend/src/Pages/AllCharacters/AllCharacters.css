@@ -14,7 +14,7 @@
 .catalog-hero::before {
     content: "";
     position: absolute; inset: 0;
-    background-image: url("./Spider-Venom.jpg");
+    background-image: url("src/assets/images/Spider-Venom.jpg");
     background-position: left center;
     background-size: contain;
     background-repeat: no-repeat;

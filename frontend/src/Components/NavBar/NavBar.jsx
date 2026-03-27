@@ -1,12 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import styles from './NavBar.module.css';
-import marvelLogo from './Marvel-Logo.png';
+import marvelLogo from '../../assets/images/Marvel-Logo.png';
 
 function NavBar() {
     return (
-        <Navbar expand="lg" className={`${styles.Navbar} p-1 mb-2`} bg="light" variant="light">
+        <Navbar expand="lg" className="p-1 mb-2" bg="light" variant="light">
             <Navbar.Brand href="/">
                 <img 
                 src={marvelLogo}

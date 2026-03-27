@@ -14,7 +14,7 @@
 .RegisterHero::before {
     content: "";
     position: absolute; inset: 0;
-    background-image: url('./thanos.jpg');  /* <-- put image next to this CSS or adjust path */
+    background-image: url('src/assets/images/thanos.jpg');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: left center;

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import http from '../../http'
-import { setToken } from '../../auth'
+import http from '../../services/http'
+import { setToken } from '../../Services/auth'
 import './Register.css'
 
 export default function Register() {

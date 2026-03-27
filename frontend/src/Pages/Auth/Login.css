@@ -1,5 +1,6 @@
 /* ===== Base: phones ===== */
 .Home {
+<<<<<<< HEAD:frontend/src/Components/Auth/Login.css
   position: relative;
   min-height: 100svh;                   /* better than 100vh on mobile */
   background:
@@ -12,6 +13,21 @@
   padding: 16px;
   text-align: center;                   /* friendlier on small screens */
   overflow: hidden;
+=======
+    background-color: black;
+    background-image: url('src/assets/images/Red-Skull.jpg');
+    background-size: contain; /* Keep full character visible */
+    background-position: left center; /* Push image to the left */
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: flex-end; /* Move content to the right */
+    align-items: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    padding-right: 10%; /* Add spacing from right edge */
+>>>>>>> c19c05f (Refactored frontend project structure, and organized files):frontend/src/Pages/Auth/Login.css
 }
 
 /* readability overlay (kept subtle; main gradient is in background) */

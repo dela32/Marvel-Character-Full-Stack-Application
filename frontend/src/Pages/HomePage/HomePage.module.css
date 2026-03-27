@@ -1,4 +1,5 @@
 .Home {
+<<<<<<< HEAD:frontend/src/Components/HomePage/HomePage.module.css
   position: relative;
   min-height: 100svh;
   background: 
@@ -11,6 +12,18 @@
   align-items: center;
   padding-bottom: 15vh;
   text-align: center;
+=======
+    background-color: black; /* Fallback color */
+    background-image: url('src/assets/images/blackPanther.jpg');
+    background-size: 105%; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+>>>>>>> c19c05f (Refactored frontend project structure, and organized files):frontend/src/Pages/HomePage/HomePage.module.css
 }
 
 /* Headline text */

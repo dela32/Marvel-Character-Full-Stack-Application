@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import http from '../../http'; // 🔹 Import your custom Axios instance
+import http from '../../services/http';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';

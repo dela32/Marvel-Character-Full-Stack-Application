@@ -1,18 +1,18 @@
 import { Routes, Route } from 'react-router-dom'
 
 // 🔐 Auth Components
-import Login from './Components/Auth/Login'
-import Register from './Components/Auth/Register'
-import PrivateRoute from './Components/Auth/PrivateRoute'
+import Login from './Pages/Auth/Login'
+import Register from './Pages/Auth/Register'
+import PrivateRoute from './Pages/Auth/PrivateRoute'
 
 // 🌐 Layout & Pages
 import NavBar from './Components/NavBar/NavBar.jsx'
-import HomePage from './Components/HomePage/HomePage.jsx'
-import AllCharacters from './Components/AllCharacters/AllCharacters.jsx'
-import MyTeam from './Components/MyTeam/MyTeam.jsx'
-import ErrorPage from './Components/ErrorPage.jsx'
-import CharacterDetail from './Components/Character/CharacterDetail.jsx'
-import CharacterForm from './Components/Character/CharacterForm.jsx'
+import HomePage from './Pages/HomePage/HomePage.jsx'
+import AllCharacters from './Pages/AllCharacters/AllCharacters.jsx'
+import MyTeam from './Pages/MyTeam/MyTeam.jsx'
+import ErrorPage from './Pages/ErrorPage.jsx'
+import CharacterDetail from './Pages/Character/CharacterDetail.jsx'
+import CharacterForm from './Pages/Character/CharacterForm.jsx'
 
 function App() {
   return (

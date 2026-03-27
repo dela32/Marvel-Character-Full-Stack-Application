@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import http from '../../http'
+import http from '../../services/http'
 import Button from 'react-bootstrap/Button'
 
     export default function MyTeam() {
