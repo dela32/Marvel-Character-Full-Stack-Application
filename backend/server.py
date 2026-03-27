@@ -250,8 +250,12 @@ PUB = os.getenv("MARVEL_PUBLIC_KEY")
 PRV = os.getenv("MARVEL_PRIVATE_KEY")
 
 def marvel_auth():
+    print("PUBLIC KEY:", PUB)
+    print("PRIVATE KEY EXISTS:", bool(PRV))
+
     if not PUB or not PRV:
         raise RuntimeError("Marvel API keys missing (check .env and load_dotenv())")
+
     ts = str(time.time())
     h = hashlib.md5((ts + PRV + PUB).encode("utf-8")).hexdigest()
     return {"ts": ts, "apikey": PUB, "hash": h}
@@ -269,21 +273,60 @@ def map_character(m):
         "description": (m.get("description") or "").strip(),
     }
 
+
+def get_local_characters(q, limit, offset):
+    query = select(Character)
+
+    if q:
+        query = query.where(Character.name.ilike(f"%{q}%"))
+
+    total_query = select(func.count()).select_from(query.subquery())
+    total = db.session.execute(total_query).scalar_one()
+
+    paged_query = query.order_by(Character.name).offset(offset).limit(limit)
+    rows = db.session.execute(paged_query).scalars().all()
+
+    items = []
+    for c in rows:
+        items.append({
+            "id": c.id,
+            "name": c.name,
+            "alias": c.alias,
+            "alignment": c.alignment,
+            "powers": c.powers,
+            "image_url": c.image_url,
+            "description": "Loaded from local fallback database"
+        })
+
+    return {
+        "results": items,
+        "total": total,
+        "count": len(items),
+        "limit": limit,
+        "offset": offset
+    }
+
 @app.get("/api/characters")
 def marvel_characters():
+    q = request.args.get("q", "").strip()
+    limit = min(int(request.args.get("limit", 24)), 100)
+    offset = int(request.args.get("offset", 0))
+
     try:
-        q = request.args.get("q", "").strip()
-        limit = min(int(request.args.get("limit", 24)), 100)
-        offset = int(request.args.get("offset", 0))
         params = {"limit": limit, "offset": offset, **marvel_auth()}
         if q:
             params["nameStartsWith"] = q
 
         with httpx.Client(timeout=15.0) as client:
             r = client.get(f"{MARVEL_BASE}/characters", params=params)
+
+            print("MARVEL STATUS:", r.status_code)
+            print("MARVEL RESPONSE:", r.text[:300])
+
             r.raise_for_status()
             d = r.json()["data"]
             items = [map_character(x) for x in d["results"]]
+
             return jsonify({
                 "results": items,
                 "total": d["total"],
@@ -291,12 +334,18 @@ def marvel_characters():
                 "limit": d["limit"],
                 "offset": d["offset"]
             })
+
     except httpx.HTTPStatusError as e:
-        return jsonify({"error": "Marvel HTTP error",
-                        "status": e.response.status_code,
-                        "body": e.response.text[:500]}), 502
+        print("Marvel upstream error:", e.response.status_code, e.response.text[:500])
+        fallback_data = get_local_characters(q, limit, offset)
+        fallback_data["error"] = "Marvel API is temporarily unavailable. Showing local fallback data."
+        return jsonify(fallback_data), 200
+
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        print("Unexpected /api/characters error:", repr(e))
+        fallback_data = get_local_characters(q, limit, offset)
+        fallback_data["error"] = "Unexpected Marvel error. Showing local fallback data."
+        return jsonify(fallback_data), 200
 
 @app.get("/api/characters/<int:cid>")
 def marvel_character_detail(cid):

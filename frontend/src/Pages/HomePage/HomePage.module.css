@@ -1,18 +1,4 @@
 .Home {
-<<<<<<< HEAD:frontend/src/Components/HomePage/HomePage.module.css
-  position: relative;
-  min-height: 100svh;
-  background: 
-    linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9)),
-    url('./blackPanther.jpg') center/cover no-repeat;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  padding-bottom: 15vh;
-  text-align: center;
-=======
     background-color: black; /* Fallback color */
     background-image: url('src/assets/images/blackPanther.jpg');
     background-size: 105%; 
@@ -23,7 +9,6 @@
     justify-content: center;
     align-items: center;
     color: white;
->>>>>>> c19c05f (Refactored frontend project structure, and organized files):frontend/src/Pages/HomePage/HomePage.module.css
 }
 
 /* Headline text */

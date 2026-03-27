@@ -1,19 +1,5 @@
 /* ===== Base: phones ===== */
 .Home {
-<<<<<<< HEAD:frontend/src/Components/Auth/Login.css
-  position: relative;
-  min-height: 100svh;                   /* better than 100vh on mobile */
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.85)),
-    url('./Red-Skull.jpg') center/cover no-repeat;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;              /* center card on phones */
-  padding: 16px;
-  text-align: center;                   /* friendlier on small screens */
-  overflow: hidden;
-=======
     background-color: black;
     background-image: url('src/assets/images/Red-Skull.jpg');
     background-size: contain; /* Keep full character visible */
@@ -27,7 +13,6 @@
     position: relative;
     overflow: hidden;
     padding-right: 10%; /* Add spacing from right edge */
->>>>>>> c19c05f (Refactored frontend project structure, and organized files):frontend/src/Pages/Auth/Login.css
 }
 
 /* readability overlay (kept subtle; main gradient is in background) */

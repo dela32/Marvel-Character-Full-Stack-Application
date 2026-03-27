@@ -18,17 +18,31 @@ function AllCharacters() {
     const limit = 24;
     const offset = page * limit;
 
-    async function fetchCharacters() {
+   async function fetchCharacters() {
     try {
         setLoading(true);
-        const res = await axios.get('/api/characters', { params: { q, limit, offset } });
+        setError(""); // clear old errors
+
+        const res = await axios.get('/api/characters', {
+            params: { q, limit, offset }
+        });
+
         setCharacters(res.data.results || []);
+        setError(res.data.error || ""); // handle soft errors
+
     } catch (err) {
-        setError(err.message || 'Network error');
+        console.error("Fetch error:", err);
+
+        setCharacters([]);
+
+        setError(
+            err.response?.data?.error || 
+            "Unable to load characters right now. Please try again later."
+        );
     } finally {
         setLoading(false);
     }
-    }
+}
 
     useEffect(() => { fetchCharacters(); /* eslint-disable-next-line */ }, [page]);
 
@@ -64,7 +78,15 @@ function AllCharacters() {
         {characters.map((c, i) => (
             <Col key={c.id} xs={12} sm={6} md={4} lg={3} className="fade-in" style={{ animationDelay: `${i * 0.01}s` }}>
             <Card className="char-card">
-                <Card.Img className="char-img" variant="top" src={c.image_url} alt={c.name} />
+                <Card.Img
+                className="char-img"
+                variant="top"
+                src={c.image_url}
+                alt={c.name}
+                onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://via.placeholder.com/300x450?text=Marvel+Character";
+                }}/>
                 <Card.Body className="char-body">
                 <Card.Title className="mb-1">{c.name}</Card.Title>
                 <Card.Text className="text-muted">Marvel Character</Card.Text>
