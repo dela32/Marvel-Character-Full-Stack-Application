@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import http from '../../services/http'
+import http from '../../Services/http'
 import { setToken } from '../../Services/auth'
 import './Register.css'
 
