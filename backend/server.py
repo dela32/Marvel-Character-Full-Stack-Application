@@ -150,8 +150,13 @@ def create_database():
 
 
 with app.app_context():
-    create_database()
-    db.create_all()
+    try:
+        create_database()
+        db.create_all()
+        print("Database connected and tables created.")
+    except Exception as e:
+        print("Database startup warning:", repr(e))
+        print("App will continue without database connection.")
 
 
 # -------------------- Health --------------------
