@@ -1,6 +1,6 @@
 .Home {
     background-color: black; /* Fallback color */
-    background-image: url('src/assets/images/blackPanther.jpg');
+    background-image: url('../../assets/images/blackPanther.jpg');
     background-size: 105%; 
     background-position: center; 
     background-repeat: no-repeat;
