@@ -1,6 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import http from '../../services/http';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
@@ -8,6 +7,10 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import {
+        fetchCharacterById,
+        fetchCharacterFromDb
+        } from "../../Services/api"; // adjust path if needed
 
 function ensureHttps(url) {
     if (!url) return '';
@@ -24,37 +27,41 @@ function ensureHttps(url) {
     const [deleteError, setDeleteError] = useState('');
     const [deleteSuccess, setDeleteSuccess] = useState('');
 
-    useEffect(() => {
-    async function fetchCharacter() {
-        setLoading(true);
-        setError(null);
-        try {
-        // 1) Try Marvel proxy first
-        const resMarvel = await axios.get(`/api/characters/${id}`);
-        setCharacter(resMarvel.data);
-        setSource('marvel');
-        } catch (e1) {
-        try {
-            // 2) Fallback to your local DB
-            const resDb = await axios.get(`/characters-db/${id}`);
-            setCharacter(resDb.data);
-            setSource('db');
-        } catch (e2) {
-            setError('Character not found or server error');
+        useEffect(() => {
+        async function fetchCharacter() {
+            setLoading(true);
+            setError(null);
+
+            try {
+            // 1) Try Marvel API (through your backend)
+            const resMarvel = await fetchCharacterById(id);
+            setCharacter(resMarvel);
+            setSource("marvel");
+
+            } catch (e1) {
+            try {
+                // 2) Fallback to your local DB
+                const resDb = await fetchCharacterFromDb(id);
+                setCharacter(resDb);
+                setSource("db");
+
+            } catch (e2) {
+                setError("Character not found or server error");
+            }
+            } finally {
+            setLoading(false);
+            }
         }
-        } finally {
-        setLoading(false);
-        }
-    }
-    fetchCharacter();
-    }, [id]);
+
+        fetchCharacter();
+        }, [id]);
 
     const handleDelete = async () => {
     if (source !== 'db') return; // Only DB characters can be deleted
     if (!window.confirm('Are you sure you want to delete this character?')) return;
 
     try {
-        await axios.delete(`/characters-db/${id}`);
+        await http.delete(`/characters-db/${id}`);
         setDeleteSuccess('Character successfully deleted.');
         setTimeout(() => navigate('/AllCharacters'), 1000);
     } catch (err) {
