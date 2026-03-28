@@ -93,10 +93,9 @@
     }
 
 .char-img {
+    display: block;
     width: 100%;
-    height: 300px;
-    object-fit: cover;       /* fills the frame nicely */
-    background: #111;        /* fallback color while loading */
+    height: auto;
 }
 
 .char-body { padding: 14px 16px 18px; }

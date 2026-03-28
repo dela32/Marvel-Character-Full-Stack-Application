@@ -21,22 +21,31 @@ function AllCharacters() {
    async function fetchCharacters() {
     try {
         setLoading(true);
-        setError(""); // clear old errors
+        setError("");
+
+        console.log("Fetching /api/characters with params:", { q, limit, offset });
 
         const res = await axios.get('/api/characters', {
             params: { q, limit, offset }
         });
 
+        console.log("FULL RESPONSE:", res);
+        console.log("RESPONSE DATA:", res.data);
+        console.log("RESULTS ARRAY:", res.data.results);
+        console.log("RESULTS LENGTH:", res.data.results?.length);
+
         setCharacters(res.data.results || []);
-        setError(res.data.error || ""); // handle soft errors
+        console.log("Characters state is about to be set.");
+        setError(res.data.error || "");
 
     } catch (err) {
-        console.error("Fetch error:", err);
+        console.error("FETCH ERROR:", err);
+        console.error("ERROR RESPONSE:", err.response);
+        console.error("ERROR DATA:", err.response?.data);
 
         setCharacters([]);
-
         setError(
-            err.response?.data?.error || 
+            err.response?.data?.error ||
             "Unable to load characters right now. Please try again later."
         );
     } finally {
@@ -47,6 +56,7 @@ function AllCharacters() {
     useEffect(() => { fetchCharacters(); /* eslint-disable-next-line */ }, [page]);
 
     const onSearch = () => { setPage(0); fetchCharacters(); };
+    console.log("RENDERING CHARACTERS:", characters);
 
     return (
     <div className="container py-3">
@@ -75,33 +85,46 @@ function AllCharacters() {
         {error && <div className="text-danger">Error: {error}</div>}
 
         <Row className="g-4">
-        {characters.map((c, i) => (
-            <Col key={c.id} xs={12} sm={6} md={4} lg={3} className="fade-in" style={{ animationDelay: `${i * 0.01}s` }}>
-            <Card className="char-card">
-                <Card.Img
-                className="char-img"
-                variant="top"
-                src={c.image_url}
-                alt={c.name}
-                onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = "https://via.placeholder.com/300x450?text=Marvel+Character";
-                }}/>
-                <Card.Body className="char-body">
-                <Card.Title className="mb-1">{c.name}</Card.Title>
-                <Card.Text className="text-muted">Marvel Character</Card.Text>
-                <Button
-                    className="view-btn"
-                    variant="danger"
-                    onClick={() => navigate(`/characters/${c.id}`)}
+            {characters.map((c, i) => {
+                console.log("CHARACTER IMAGE:", c.name, c.image_url);
+
+                return (
+                <Col
+                    key={c.id}
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                    className="fade-in"
+                    style={{ animationDelay: `${i * 0.01}s` }}
                 >
-                    View Details
-                </Button>
-                </Card.Body>
-            </Card>
-            </Col>
-        ))}
-        </Row>
+                    <Card className="char-card">
+                    <Card.Img
+                        className="char-img"
+                        variant="top"
+                        src={c.image_url?.trim()}
+                        alt={c.name}
+                        onError={(e) => {
+                            console.log("IMAGE FAILED:", c.name, c.image_url);
+                            e.target.style.display = "none";
+                        }}
+                        />
+                    <Card.Body className="char-body">
+                        <Card.Title className="mb-1">{c.name}</Card.Title>
+                        <Card.Text className="text-muted">Marvel Character</Card.Text>
+                        <Button
+                        className="view-btn"
+                        variant="danger"
+                        onClick={() => navigate(`/characters/${c.id}`)}
+                        >
+                        View Details
+                        </Button>
+                    </Card.Body>
+                    </Card>
+                </Col>
+                );
+            })}
+            </Row>
 
         <div className="d-flex justify-content-between align-items-center my-4">
         <Button variant="danger" disabled={page === 0} onClick={() => setPage((p) => Math.max(0, p - 1))}>

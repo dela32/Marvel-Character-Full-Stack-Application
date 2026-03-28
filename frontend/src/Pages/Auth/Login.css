@@ -1,24 +1,23 @@
-/* ===== Base: phones ===== */
 .Home {
-    background-color: black;
-    background-image: url('src/assets/images/Red-Skull.jpg');
-    background-size: contain; /* Keep full character visible */
-    background-position: left center; /* Push image to the left */
-    background-repeat: no-repeat;
-    height: 100vh;
-    display: flex;
-    justify-content: flex-end; /* Move content to the right */
-    align-items: center;
-    color: white;
-    position: relative;
-    overflow: hidden;
-    padding-right: 10%; /* Add spacing from right edge */
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.2)),
+    url('../../assets/images/Red-Skull.jpg');
+  background-color: black;
+  background-size: 42% auto;
+  background-position: left center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  color: white;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem 8%;
 }
 
-/* readability overlay (kept subtle; main gradient is in background) */
-.Home::before { content: none; }
-
-/* Headline */
 .headerText {
   margin: 0 0 1rem 0;
   font-weight: 800;
@@ -27,10 +26,7 @@
   text-shadow: 0 3px 10px rgba(0,0,0,.7);
 }
 
-/* Card */
 .login-box {
-  position: relative;
-  z-index: 1;
   width: min(520px, 100%);
   background: rgba(0,0,0,.75);
   border-radius: 14px;
@@ -39,16 +35,18 @@
   backdrop-filter: blur(2px);
 }
 
-/* Form controls: big, tappable */
 .form-container .form-control {
   height: 48px;
-  font-size: 16px;                      /* prevents iOS zoom */
+  font-size: 16px;
   border-radius: 10px;
   background: #161616;
   border: 1px solid #2c2c2c;
   color: #fff;
 }
-.form-container .form-control::placeholder { color: #9aa0a6; }
+
+.form-container .form-control::placeholder {
+  color: #9aa0a6;
+}
 
 .btn.btn-danger {
   height: 48px;
@@ -58,32 +56,50 @@
   border: none;
   transition: transform .15s ease, box-shadow .15s ease, background-color .2s;
 }
-.btn.btn-danger:hover { background:#b72020; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(226,54,54,.35); }
 
-.link-light { color: #ff5b5b; text-decoration: none; }
-.link-light:hover { text-decoration: underline; }
-
-/* ===== Tablets ===== */
-@media (min-width: 768px) {
-  .Home { padding: 24px; }
-  .login-box { border-radius: 16px; }
+.btn.btn-danger:hover {
+  background: #b72020;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(226,54,54,.35);
 }
 
-/* ===== Desktops: restore left art + right card ===== */
+.link-light {
+  color: #ff5b5b;
+  text-decoration: none;
+}
+
+.link-light:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .Home {
+    padding: 24px;
+  }
+
+  .login-box {
+    border-radius: 16px;
+  }
+}
+
 @media (min-width: 992px) {
   .Home {
-    background:
-      linear-gradient(90deg, rgba(0,0,0,.20) 0%, rgba(0,0,0,.65) 40%, rgba(0,0,0,.25) 100%),
-      url('./Red-Skull.jpg') left center/contain no-repeat;
-    justify-content: flex-end;
-    text-align: right;
+    background-size: 46% auto;
     padding-right: max(6vw, 48px);
+    text-align: right;
   }
-  .headerText { font-size: clamp(2rem, 3.2vw, 3rem); }
-  .login-box { max-width: 420px; }
+
+  .headerText {
+    font-size: clamp(2rem, 3.2vw, 3rem);
+  }
+
+  .login-box {
+    max-width: 420px;
+  }
 }
 
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .btn.btn-danger { transition: none; }
+  .btn.btn-danger {
+    transition: none;
+  }
 }
